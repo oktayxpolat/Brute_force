@@ -12,7 +12,6 @@ int main() {
 	
 	if(number==1){
 	printf("Uppercase is being tested.");
-	printf("tek dizi")
 }
 	if(number==2){
 	printf("Lowercase is being tested.");
