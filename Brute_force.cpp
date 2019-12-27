@@ -1,5 +1,27 @@
 #include <stdio.h>
 #include <string.h>
+void swap(char *x, char *y) 
+{ 
+    char temp; 
+    temp = *x; 
+    *x = *y; 
+    *y = temp; 
+} 
+void permute(char *a, int l, int r) 
+{ 
+   int i; 
+   if (l == r) 
+     printf("%s\n", a); 
+   else
+   { 
+       for (i = l; i <= r; i++) 
+       { 
+          swap((a+l), (a+i)); 
+          permute(a, l+1, r); 
+          swap((a+l), (a+i));
+       } 
+   } 
+}
 int main() {
 	int number;
 	char uppercase[]={"ABC"};
@@ -13,22 +35,30 @@ int main() {
 	if(number==1){
 		printf("Uppercase is being tested.\n");
 		char uppercase[4]="ABC";
-		printf("%s",uppercase);
+		printf("%s\n\n",uppercase);
+		int n = strlen(uppercase); 
+    		permute(uppercase, 0, n-1);
 	}
 	if(number==2){
 		printf("Lowercase is being tested.\n");
 		char lowercase[4] = "abc";
-		printf("%s",lowercase);
+		printf("%s\n\n",lowercase);
+		int n = strlen(lowercase); 
+    		permute(lowercase, 0, n-1);
 	}
 	if(number==3){
 		printf("Numbers are being tested.\n");
 		char numbers[6] = {"12345"};
-		printf("%s",numbers);
+		printf("%s\n\n",numbers);
+		int n = strlen(numbers); 
+    	permute(numbers, 0, n-1);
 	}
 	if(number==4){
 		printf("Signs are being tested.\n");
 		char signs[4] = "*-?";
-		printf("%s",signs);
+		printf("%s\n\n",signs);
+		int n = strlen(signs); 
+    		permute(signs, 0, n-1);
 	}
 	if(number==5){
 		printf("Uppercase and Lowercase are being tested.\n");
@@ -37,7 +67,9 @@ int main() {
 			char c[arti];
 			strcpy(c,uppercase);
 			strcat(c,lowercase);
-			printf("%s",c);
+			printf("%s\n\n",c);
+		int n = strlen(c); 
+    		permute(c, 0, n-1);
 	}
 	if(number==6){
 		printf("Uppercase and Numbers are being tested.\n");
@@ -46,7 +78,9 @@ int main() {
 			char c[arti];
 			strcpy(c,uppercase);
 			strcat(c,numbers);
-			printf("%s",c);
+			printf("%s\n\n",c);
+		int n = strlen(c); 
+    		permute(c, 0, n-1);
 	}
 	if(number==7){
 		printf("Uppercase and Signs are being tested.\n");
@@ -55,7 +89,9 @@ int main() {
 			char c[arti];
 			strcpy(c,uppercase);
 			strcat(c,signs);
-			printf("%s",c);
+			printf("%s\n\n",c);
+		int n = strlen(c); 
+    		permute(c, 0, n-1);
 	}
 	if(number==8){
 		printf("Lowercase and Numbers are being tested.\n");
@@ -64,7 +100,9 @@ int main() {
 			char c[arti];
 			strcpy(c,lowercase);
 			strcat(c,numbers);
-			printf("%s",c);
+			printf("%s\n\n",c);
+		int n = strlen(c); 
+    		permute(c, 0, n-1);
 	}
 	if(number==9){
 		printf("Lowercase and Signs are being tested.\n");
@@ -73,7 +111,9 @@ int main() {
 			char c[arti];
 			strcpy(c,lowercase);
 			strcat(c,signs);
-			printf("%s",c);
+			printf("%s\n\n",c);
+		int n = strlen(c); 
+    		permute(c, 0, n-1);
 	}
 	if(number==10){
 		printf("Numbers and Signs are being tested.\n");
@@ -82,7 +122,9 @@ int main() {
 			char c[arti];
 			strcpy(c,numbers);
 			strcat(c,signs);
-			printf("%s",c);
+			printf("%s\n\n",c);
+		int n = strlen(c); 
+    		permute(c, 0, n-1);
 	}
 	if(number==11){
 		printf("Uppercase, Lowercase and Numbers are being tested.\n");
@@ -92,7 +134,9 @@ int main() {
 			strcpy(c,uppercase);
 			strcat(c,lowercase);
 			strcat(c,numbers);
-			printf("%s",c);
+			printf("%s\n\n",c);
+		int n = strlen(c); 
+    		permute(c, 0, n-1);
 	}
 	if(number==12){
 		printf("Uppercase, Numbers and Signs are being tested.\n");
@@ -102,7 +146,9 @@ int main() {
 			strcpy(c,uppercase);
 			strcat(c,numbers);
 			strcat(c,signs);
-			printf("%s",c);
+			printf("%s\n\n",c);
+		int n = strlen(c); 
+    		permute(c, 0, n-1);
 	}
 	if(number==13){
 		printf("Lowercase, Numbers and Signs are being tested.\n");
@@ -112,7 +158,9 @@ int main() {
 			strcpy(c,lowercase);
 			strcat(c,numbers);
 			strcat(c,signs);
-			printf("%s",c);
+			printf("%s\n\n",c);
+		int n = strlen(c); 
+    		permute(c, 0, n-1);
 	}
 	if(number==14){
 		printf("Uppercase, Lowercase, Numbers and Signs are being tested.\n");
@@ -123,7 +171,9 @@ int main() {
 			strcat(c,lowercase);
 			strcat(c,numbers);
 			strcat(c,signs);
-			printf("%s",c);
+			printf("%s\n\n",c);
+			int n = strlen(c); 
+    			permute(c, 0, n-1);
 	}
 	return 0;
 }
