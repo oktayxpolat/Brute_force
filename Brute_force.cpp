@@ -1,90 +1,79 @@
 #include <stdio.h>
 #include <string.h>
-void swap(char *x, char *y) 
+#include <stdlib.h>
+int compare (const void * a, const void * b); 
+void permuteRecur (char *str, char* data, int last, int index) 
 { 
-    char temp; 
-    temp = *x; 
-    *x = *y; 
-    *y = temp; 
+    char pass[] = "AxDc"; 
+	int i, len = strlen(str); 
+	int c=1;
+    	for ( i=0; i<len; i++ ) { 
+        	data[index] = str[i] ; 
+        	c = strcmp(data,pass);
+		if (c==0){
+			printf("\nThe Password is: %s \n",data);
+			break;
+			} 
+		else if(index == last){
+			}
+        else  
+            permuteRecur (str, data, last, index+1); 
+    }
+}  
+void permute(char *str,int digit) 
+{ 
+    int len = digit ; 
+    char *data = (char *) malloc (sizeof(char) * (len + 1)) ; 
+    data[len] = '\0'; 
+    qsort(str, len, sizeof(char), compare); 
+    permuteRecur (str, data, len-1, 0); 
+    free(data); 
 } 
-void permute(char *a, int i, char n, char m) 
-{
-   int j; 
-   if (i == m)
-   {
-       char temp = *(a+i);
-       *(a+i) = '\0';
-       printf("%s\n", a);
-       *(a+i) = temp;
-   }
-   else
-   {
-       for (j = i; j <= n; j++)
-       {
-          swap((a+i), (a+j));
-          permute(a, i+1, n, m);
-          swap((a+i), (a+j));
-       }
-   }
+int compare (const void * a, const void * b) 
+{ 
+    return ( *(char *)a - *(char *)b ); 
 } 
 int main() {
-	char password;
 	int number;
-	char uppercase[]={"ABC"};
-	char lowercase[] = {"abc"};	
-	char numbers[] = {"12345"};
-	char signs[] = {"*-?"};
-		printf("1:Uppercase\n2:Lowercase\n3:Numers\n4:Signs\n5:Uppercase and Lowercase\n6:Uppercase and Numbers\n7:Uppercase and Signs\n8:Lowercase and Numbers\n9:Lowercase and Signs\n10:Numbers and Signs\n11:Uppercase, Lowercase and Numbers\n12:Uppercase, Numbers and Signs\n13:Lowercase, Numbers and Signs\n14:Uppercase, Lowercase, Numbers and Signs\n\n");
+	char uppercase[]={"ABCDEFGHIJKLMNOPQRSTUVWXYZ"};
+	char lowercase[] = {"abcdefghijklmnopqrstuvwxyz"};	
+	char numbers[] = {"0123456789"};
+	char signs[] = {"*,.-?!'^#+$%_&/{}()[]=<>|"};
+		printf("1:Uppercase\n2:Lowercase\n3:Numbers\n4:Signs\n5:Uppercase and Lowercase\n6:Uppercase and Numbers\n7:Uppercase and Signs\n8:Lowercase and Numbers\n9:Lowercase and Signs\n10:Numbers and Signs\n11:Uppercase, Lowercase and Numbers\n12:Uppercase, Numbers and Signs\n13:Lowercase, Numbers and Signs\n14:Uppercase, Lowercase, Numbers and Signs\n\n");
 		printf("Enter the number of the category you want to test:");
 		scanf("%d",&number);
 	
 	if(number==1){
 		printf("Uppercase is being tested.\n\n");
-		char uppercase[4]="ABC";
 			printf("Characters of this category are %s\n\n",uppercase);
-		int n = strlen(uppercase); 
-		int i, digit;
-			printf("Enter the number of digits you want to test:");
-			scanf("%d", &digit);
-			for(i=0;i<=digit;i++){
-				permute(uppercase, 0, n-1, i);
-			}
+			int digit;
+				printf("Enter the number of digits you want to test:");
+				scanf("%d", &digit);
+				permute(uppercase,digit);
 	}
 	if(number==2){
 		printf("Lowercase is being tested.\n\n");
-		char lowercase[4] = "abc";
 			printf("Characters of this category are %s\n\n",lowercase);
-		int n = strlen(lowercase);
-		int i, digit; 
-			printf("Enter the number of digits you want to test:");
-			scanf("%d", &digit);
-			for(i=0;i<=digit;i++){
-    			permute(lowercase, 0, n-1, i);
-			}
+			int digit; 
+				printf("Enter the number of digits you want to test:");
+				scanf("%d", &digit);
+				permute(lowercase,digit);
 	}
 	if(number==3){
 		printf("Numbers are being tested.\n\n");
-		char numbers[6] = {"12345"};
 			printf("Characters of this category are %s\n\n",numbers);
-		int n = strlen(numbers); 
-    	int i, digit;
-			printf("Enter the number of digits you want to test:");
-			scanf("%d", &digit);
-			for(i=0;i<=digit;i++){
-				permute(numbers, 0, n-1, i);
-			}
+    		int digit;
+				printf("Enter the number of digits you want to test:");
+				scanf("%d", &digit);
+				permute(numbers,digit);
 	}
 	if(number==4){
 		printf("Signs are being tested.\n\n");
-		char signs[4] = "*-?";
 			printf("%Characters of this category are s\n\n",signs);
-		int n = strlen(signs); 
-    	int i, digit;	
-			printf("Enter the number of digits you want to test:");
-			scanf("%d", &digit);
-			for(i=0;i<=digit;i++){
-				permute(signs, 0, n-1, i);
-			}
+    		int digit;	
+				printf("Enter the number of digits you want to test:");
+				scanf("%d", &digit);
+				permute(signs,digit);
 	}
 	if(number==5){
 		printf("Uppercase and Lowercase are being tested.\n\n");
@@ -94,13 +83,10 @@ int main() {
 				strcpy(c,uppercase);
 				strcat(c,lowercase);
 					printf("Characters of this category are %s\n\n",c);
-		int n = strlen(c); 
-    	int i, digit;	
-			printf("Enter the number of digits you want to test:");
-			scanf("%d", &digit);
-			for(i=0;i<=digit;i++){
-				permute(c, 0, n-1, i);
-			}
+    		int digit;	
+				printf("Enter the number of digits you want to test:");
+				scanf("%d", &digit);
+				permute(c,digit);
 	}
 	if(number==6){
 		printf("Uppercase and Numbers are being tested.\n\n");
@@ -109,14 +95,11 @@ int main() {
 			char c[arti];
 				strcpy(c,uppercase);
 				strcat(c,numbers);
-					printf("Characters of this category are %s\n\n",c);
-		int n = strlen(c); 
-    	int i, digit;	
-			printf("Enter the number of digits you want to test:");
-			scanf("%d", &digit);
-			for(i=0;i<=digit;i++){
-				permute(c, 0, n-1, i);
-			}
+					printf("Characters of this category are %s\n\n",c); 
+    		int digit;	
+				printf("Enter the number of digits you want to test:");
+				scanf("%d", &digit);
+				permute(c,digit);
 	}
 	if(number==7){
 		printf("Uppercase and Signs are being tested.\n\n");
@@ -126,13 +109,10 @@ int main() {
 				strcpy(c,uppercase);
 				strcat(c,signs);
 					printf("Characters of this category are %s\n\n",c);
-		int n = strlen(c); 
-    	int i, digit;	
-			printf("Enter the number of digits you want to test:");
-			scanf("%d", &digit);
-			for(i=0;i<=digit;i++){
-				permute(c, 0, n-1, i);
-			}
+    		int digit;	
+				printf("Enter the number of digits you want to test:");
+				scanf("%d", &digit);
+				permute(c,digit);
 	}
 	if(number==8){
 		printf("Lowercase and Numbers are being tested.\n\n");
@@ -142,13 +122,10 @@ int main() {
 				strcpy(c,lowercase);
 				strcat(c,numbers);
 					printf("Characters of this category are %s\n\n",c);
-		int n = strlen(c); 
-    	int i, digit;	
-			printf("Enter the number of digits you want to test:");
-			scanf("%d", &digit);
-			for(i=0;i<=digit;i++){
-				permute(c, 0, n-1, i);
-			}
+    		int digit;	
+				printf("Enter the number of digits you want to test:");
+				scanf("%d", &digit);
+				permute(c,digit);
 	}
 	if(number==9){
 		printf("Lowercase and Signs are being tested.\n\n");
@@ -158,13 +135,10 @@ int main() {
 				strcpy(c,lowercase);
 				strcat(c,signs);
 					printf("Characters of this category are %s\n\n",c);
-		int n = strlen(c); 
-    	int i, digit;	
-			printf("Enter the number of digits you want to test:");
-			scanf("%d", &digit);
-			for(i=0;i<=digit;i++){
-				permute(c, 0, n-1, i);
-			}
+    		int digit;	
+				printf("Enter the number of digits you want to test:");
+				scanf("%d", &digit);
+				permute(c,digit);
 	}
 	if(number==10){
 		printf("Numbers and Signs are being tested.\n\n");
@@ -174,13 +148,10 @@ int main() {
 				strcpy(c,numbers);
 				strcat(c,signs);
 					printf("Characters of this category are %s\n\n",c);
-		int n = strlen(c); 
-    	int i, digit;	
-			printf("Enter the number of digits you want to test:");
-			scanf("%d", &digit);
-			for(i=0;i<=digit;i++){
-				permute(c, 0, n-1, i);
-			}
+    		int digit;	
+				printf("Enter the number of digits you want to test:");
+				scanf("%d", &digit);
+				permute(c,digit);
 	}
 	if(number==11){
 		printf("Uppercase, Lowercase and Numbers are being tested.\n\n");
@@ -191,13 +162,10 @@ int main() {
 				strcat(c,lowercase);
 				strcat(c,numbers);
 					printf("Characters of this category are %s\n\n",c);
-		int n = strlen(c); 
-    	int i, digit;	
-			printf("Enter the number of digits you want to test:");
-			scanf("%d", &digit);
-			for(i=0;i<=digit;i++){
-				permute(c, 0, n-1, i);
-			}
+    		int digit;	
+				printf("Enter the number of digits you want to test:");
+				scanf("%d", &digit);
+				permute(c,digit);
 	}
 	if(number==12){
 		printf("Uppercase, Numbers and Signs are being tested.\n\n");
@@ -208,13 +176,10 @@ int main() {
 				strcat(c,numbers);
 				strcat(c,signs);
 					printf("Characters of this category are %s\n\n",c);
-		int n = strlen(c); 
-    	int i, digit;	
-			printf("Enter the number of digits you want to test:");
-			scanf("%d", &digit);
-			for(i=0;i<=digit;i++){
-				permute(c, 0, n-1, i);
-			}
+    		int digit;	
+				printf("Enter the number of digits you want to test:");
+				scanf("%d", &digit);
+				permute(c,digit);
 	}
 	if(number==13){
 		printf("Lowercase, Numbers and Signs are being tested.\n\n");
@@ -225,13 +190,10 @@ int main() {
 				strcat(c,numbers);
 				strcat(c,signs);
 					printf("Characters of this category are %s\n\n",c);
-		int n = strlen(c); 
-    	int i, digit;	
-			printf("Enter the number of digits you want to test:");
-			scanf("%d", &digit);
-			for(i=0;i<=digit;i++){
-				permute(c, 0, n-1, i);
-			}
+    		int digit;	
+				printf("Enter the number of digits you want to test:");
+				scanf("%d", &digit);
+				permute(c,digit);
 	}
 	if(number==14){
 		printf("Uppercase, Lowercase, Numbers and Signs are being tested.\n\n");
@@ -243,13 +205,10 @@ int main() {
 				strcat(c,numbers);
 				strcat(c,signs);
 					printf("Characters of this category are %s\n\n",c);
-			int n = strlen(c); 
-    		int i, digit;
-			printf("Enter the number of digits you want to test:");
+    		int digit;
+				printf("Enter the number of digits you want to test:");
 				scanf("%d", &digit);
-				for(i=0;i<=digit;i++){
-				permute(c, 0, n-1, i);
-				}
+				permute(c,digit);
 	}
 	return 0;
 }
